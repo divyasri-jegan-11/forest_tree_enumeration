@@ -6,6 +6,14 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
+from ultralytics import YOLO
+
+@st.cache_resource
+def load_model():
+    return YOLO("yolov8n.pt")
+
+model = load_model()
+
 from matplotlib.colors import ListedColormap
 from matplotlib.patches import Patch
 
@@ -814,6 +822,7 @@ def run_analysis(
     if original_bgr is None:
         raise ValueError("The uploaded image could not be read.")
 
+  st.write("🚀 Running detection...")
     original_rgb = cv2.cvtColor(original_bgr, cv2.COLOR_BGR2RGB)
     detection_result = detect(
         str(upload_path),
@@ -1083,7 +1092,7 @@ def upload_detection_page():
                 st.warning("Upload an image first.")
             else:
                 try:
-                    with st.spinner("Running image analytics and tree enumeration..."):
+                    with st.spinner("🌳 Analyzing forest... please wait"):
                         run_analysis(
                             uploaded_file,
                             project_name,
