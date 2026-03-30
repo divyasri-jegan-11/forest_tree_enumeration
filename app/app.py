@@ -822,7 +822,7 @@ def run_analysis(
     if original_bgr is None:
         raise ValueError("The uploaded image could not be read.")
 
-  st.write("🚀 Running detection...")
+    st.write("🚀 Running detection...")
     original_rgb = cv2.cvtColor(original_bgr, cv2.COLOR_BGR2RGB)
     detection_result = detect(
         str(upload_path),
